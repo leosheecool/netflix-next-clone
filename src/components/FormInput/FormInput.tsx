@@ -6,15 +6,24 @@ type Props = React.ComponentPropsWithRef<'input'> & {
   label?: string;
 };
 
-const FormInput = ({ label, ...props }: Props) => {
-  return (
-    <div className={styles.container}>
-      <input {...props} className={cn(styles.input)} placeholder=" " />
-      <label className={styles.label} htmlFor={props.id}>
-        {label}
-      </label>
-    </div>
-  );
-};
+const FormInput = React.forwardRef<HTMLInputElement, Props>(
+  ({ label, ...props }, ref) => {
+    return (
+      <div className={styles.container}>
+        <input
+          {...props}
+          className={cn(styles.input)}
+          placeholder=" "
+          ref={ref}
+        />
+        <label className={styles.label} htmlFor={props.id}>
+          {label}
+        </label>
+      </div>
+    );
+  }
+);
+
+FormInput.displayName = 'FormInput';
 
 export default FormInput;

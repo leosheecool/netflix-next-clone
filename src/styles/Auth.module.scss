@@ -1,3 +1,5 @@
+@import '@/styles/colors';
+
 .container {
   @apply h-full bg-[url("/images/hero.jpg")] bg-no-repeat bg-center bg-fixed bg-cover;
 }
@@ -7,7 +9,7 @@
 }
 
 .logo {
-  @apply h-[100px];
+  @apply h-[50px];
 }
 
 .formContainer {
@@ -16,4 +18,18 @@
   h2 {
     @apply text-white text-4xl mb-8 font-semibold;
   }
+
+  .signInBtn {
+    @apply bg-red-600 py-3 text-white rounded-md w-full text-center text-xl font-semibold hover:bg-red-700 transition;
+  }
+}
+
+.helperText {
+  @apply mt-4;
+  color: $light-gray;
+}
+
+.helperLink {
+  @apply text-white font-semibold;
+  cursor: pointer;
 }

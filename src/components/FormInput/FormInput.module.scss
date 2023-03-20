@@ -1,23 +1,32 @@
+@import '@/styles/colors';
+
 .container {
   position: relative;
-  margin-bottom: 45px;
+  margin-bottom: 30px;
 
   .input {
     font-size: 18px;
-    padding: 10px 10px 10px 5px;
+    padding: 10px;
     display: block;
     width: 100%;
     border: none;
-    border-bottom: 1px solid #757575;
+    border-bottom: 1px solid $medium-gray;
+    background-color: $medium-gray;
+    border-radius: 5px;
+    color: #fff;
+  }
+
+  .input:focus {
+    outline: none;
   }
 
   .label {
-    color: #999;
+    color: $light-gray;
     font-size: 18px;
     font-weight: normal;
     position: absolute;
     pointer-events: none;
-    left: 5px;
+    left: 10px;
     top: 10px;
     transition: 300ms ease all;
 
@@ -28,12 +37,14 @@
 
   .input:not(:placeholder-shown) ~ .label {
     top: -20px;
+    left: 5px;
     font-size: 14px;
     color: #fff;
   }
 
   .input:focus ~ .label {
     top: -20px;
+    left: 5px;
     font-size: 14px;
     color: #fff;
   }
