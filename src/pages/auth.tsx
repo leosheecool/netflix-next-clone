@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import styles from '@/styles/Auth.module.scss';
 import { FormInput } from '@/components';
 import { useForm } from 'react-hook-form';
-import Link from 'next/link';
+import axios from 'axios';
 
 type Data = {
   email: string;
@@ -29,8 +29,19 @@ const Auth = () => {
   const { register, handleSubmit } = useForm<Data>();
   const [formType, setFormType] = useState<'login' | 'signup'>('login');
 
+  const registerUser = useCallback(async (data: Data) => {
+    try {
+      await axios.post('/api/register', data);
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
   const handleSubmitForm = (data: Data) => {
-    console.log(data);
+    if (formType === 'signup') {
+      registerUser(data);
+      return;
+    }
   };
 
   return (
