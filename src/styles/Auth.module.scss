@@ -1,0 +1,19 @@
+.container {
+  @apply h-full bg-[url("/images/hero.jpg")] bg-no-repeat bg-center bg-fixed bg-cover;
+}
+
+.heroContainer {
+  @apply h-full w-full bg-black bg-opacity-50;
+}
+
+.logo {
+  @apply h-[100px];
+}
+
+.formContainer {
+  @apply m-auto bg-black bg-opacity-80 w-fit p-16 rounded;
+
+  h2 {
+    @apply text-white text-4xl mb-8 font-semibold;
+  }
+}

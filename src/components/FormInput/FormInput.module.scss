@@ -1,0 +1,40 @@
+.container {
+  position: relative;
+  margin-bottom: 45px;
+
+  .input {
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #757575;
+  }
+
+  .label {
+    color: #999;
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    transition: 300ms ease all;
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+
+  .input:not(:placeholder-shown) ~ .label {
+    top: -20px;
+    font-size: 14px;
+    color: #fff;
+  }
+
+  .input:focus ~ .label {
+    top: -20px;
+    font-size: 14px;
+    color: #fff;
+  }
+}
