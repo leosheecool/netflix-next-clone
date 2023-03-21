@@ -6,6 +6,10 @@ import { useMutation } from '@tanstack/react-query';
 import { loginUser, registerUser } from '@/apiCallFns/Auth';
 import { useRouter } from 'next/router';
 
+import { FcGoogle } from 'react-icons/fc';
+import { FaGithub } from 'react-icons/fa';
+import { signIn } from 'next-auth/react';
+
 type Data = {
   email: string;
   password: string;
@@ -46,6 +50,7 @@ const Auth = () => {
   const handleSubmitForm = (data: Data) => {
     if (formType === 'signup') {
       registerMutation.mutate(data as Required<Data>);
+      setFormType('login');
       return;
     }
     loginMutation.mutate(data);
@@ -86,6 +91,16 @@ const Auth = () => {
               {pageText[formType].buttonText}
             </button>
           </form>
+          <div className={styles.oAuthIconsContainer}>
+            <FcGoogle
+              className={styles.oAuthIcon}
+              onClick={() => signIn('google', { callbackUrl: '/' })}
+            />
+            <FaGithub
+              className={styles.oAuthIcon}
+              onClick={() => signIn('github', { callbackUrl: '/' })}
+            />
+          </div>
           <p className={styles.helperText}>
             {pageText[formType].helperText}
             <span
