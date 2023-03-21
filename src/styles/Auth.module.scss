@@ -33,3 +33,7 @@
   @apply text-white font-semibold;
   cursor: pointer;
 }
+
+.error {
+  @apply text-red-600 my-4;
+}

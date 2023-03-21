@@ -1,8 +1,10 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import styles from '@/styles/Auth.module.scss';
 import { FormInput } from '@/components';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
+import { useMutation } from '@tanstack/react-query';
+import { loginUser, registerUser } from '@/apiCallFns/Auth';
+import { useRouter } from 'next/router';
 
 type Data = {
   email: string;
@@ -26,22 +28,27 @@ const pageText = {
 };
 
 const Auth = () => {
+  const router = useRouter();
   const { register, handleSubmit } = useForm<Data>();
   const [formType, setFormType] = useState<'login' | 'signup'>('login');
-
-  const registerUser = useCallback(async (data: Data) => {
-    try {
-      await axios.post('/api/register', data);
-    } catch (err) {
-      console.log(err);
+  const [error, setError] = useState<string>();
+  const registerMutation = useMutation({ mutationFn: registerUser });
+  const loginMutation = useMutation({
+    mutationFn: async (data: Omit<Data, 'username'>) => {
+      const test = await loginUser(data);
+      if (!test) return;
+      test.status === 200 && router.push(test.url || '/');
+      setError(test.error);
+      throw new Error(test.error);
     }
-  }, []);
+  });
 
   const handleSubmitForm = (data: Data) => {
     if (formType === 'signup') {
-      registerUser(data);
+      registerMutation.mutate(data as Required<Data>);
       return;
     }
+    loginMutation.mutate(data);
   };
 
   return (
@@ -59,7 +66,7 @@ const Auth = () => {
               <FormInput
                 label="Username"
                 id="username"
-                {...register('username')}
+                {...register('username', { required: formType === 'signup' })}
               />
             )}
             <FormInput
@@ -74,6 +81,7 @@ const Auth = () => {
               type="password"
               {...register('password')}
             />
+            {error && <p className={styles.error}>{error}</p>}
             <button type="submit" className={styles.signInBtn}>
               {pageText[formType].buttonText}
             </button>
