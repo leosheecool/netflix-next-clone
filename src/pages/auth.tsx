@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from '@/styles/Auth.module.scss';
+import utilsStyles from '@/styles/utils.module.scss';
 import { FormInput } from '@/components';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
@@ -87,7 +88,7 @@ const Auth = () => {
               {...register('password')}
             />
             {error && <p className={styles.error}>{error}</p>}
-            <button type="submit" className={styles.signInBtn}>
+            <button type="submit" className={utilsStyles.primaryBtn}>
               {pageText[formType].buttonText}
             </button>
           </form>
