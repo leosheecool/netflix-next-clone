@@ -1,0 +1,15 @@
+.container {
+  @apply w-full h-full flex flex-col items-center justify-center;
+}
+
+.title {
+  @apply lg:text-5xl md:text-4xl sm:text-2xl font-bold;
+}
+
+.profilePicture {
+  @apply w-48 h-48 border-2 border-transparent hover:border-white hover:cursor-pointer m-10;
+}
+
+.profileName {
+  @apply text-center text-2xl font-bold;
+}

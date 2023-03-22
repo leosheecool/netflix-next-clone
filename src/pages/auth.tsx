@@ -42,7 +42,7 @@ const Auth = () => {
     mutationFn: async (data: Omit<Data, 'username'>) => {
       const test = await loginUser(data);
       if (!test) return;
-      test.status === 200 && router.push(test.url || '/');
+      test.status === 200 && router.push(test.url || '/profiles');
       setError(test.error);
       throw new Error(test.error);
     }
@@ -60,11 +60,13 @@ const Auth = () => {
   return (
     <div className={styles.container}>
       <div className={styles.heroContainer}>
-        <img
-          src="/images/logos/Netflix_2015_logo.svg"
-          alt="netflix"
-          className={styles.logo}
-        />
+        <div className={styles.logoContainer}>
+          <img
+            src="/images/logos/Netflix_2015_logo.svg"
+            alt="netflix"
+            className={styles.logo}
+          />
+        </div>
         <div className={styles.formContainer}>
           <form onSubmit={handleSubmit(handleSubmitForm)}>
             <h2>{pageText[formType].title}</h2>
@@ -95,11 +97,11 @@ const Auth = () => {
           <div className={styles.oAuthIconsContainer}>
             <FcGoogle
               className={styles.oAuthIcon}
-              onClick={() => signIn('google', { callbackUrl: '/' })}
+              onClick={() => signIn('google', { callbackUrl: '/profiles' })}
             />
             <FaGithub
               className={styles.oAuthIcon}
-              onClick={() => signIn('github', { callbackUrl: '/' })}
+              onClick={() => signIn('github', { callbackUrl: '/profiles ' })}
             />
           </div>
           <p className={styles.helperText}>

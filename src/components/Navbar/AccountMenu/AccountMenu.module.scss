@@ -1,0 +1,11 @@
+.container {
+  @apply absolute top-[100%] right-0 p-4 bg-zinc-900 rounded-md shadow-lg;
+}
+
+.menuItem {
+  @apply flex items-center gap-4 p-2 justify-end cursor-pointer hover:bg-zinc-800 transition;
+}
+
+.userIcon {
+  @apply h-8 w-8;
+}

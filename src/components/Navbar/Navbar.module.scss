@@ -1,0 +1,45 @@
+.container {
+  @apply w-full fixed top-0 z-10 px-4 py-6 flex items-center justify-between transition duration-500 bg-zinc-900 bg-opacity-90;
+}
+
+// .logoContainer {
+//   @apply;
+// }
+
+.logo {
+  @apply h-8;
+}
+
+.linksContainer {
+  @apply flex items-center gap-6;
+}
+
+.profileSection {
+  @apply flex items-center gap-4 ml-8 cursor-pointer relative;
+}
+
+.icon {
+  @apply h-6 w-6 hover:opacity-80 transition;
+
+  &.reverse {
+    @apply transform rotate-180;
+  }
+}
+
+.profileIconContainer {
+  @apply flex items-center gap-2;
+
+  .profilePicture {
+    @apply h-12 w-12 border-2 border-transparent rounded-md;
+  }
+
+  &:hover {
+    // .profilePicture {
+    //   @apply border-white;
+    // }
+
+    .icon {
+      @apply opacity-80;
+    }
+  }
+}

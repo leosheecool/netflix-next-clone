@@ -8,6 +8,10 @@
   @apply h-full w-full bg-black bg-opacity-50;
 }
 
+.logoContainer {
+  @apply px-4 py-6;
+}
+
 .logo {
   @apply h-[50px];
 }
