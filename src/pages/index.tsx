@@ -4,7 +4,7 @@ import { getCurrentUser } from '@/apiCallFns/User';
 import utilsStyles from '@/styles/utils.module.scss';
 import { NextPageContext } from 'next';
 import { useQuery } from '@tanstack/react-query';
-import { Navbar } from '@/components';
+import { BillBoard, Navbar } from '@/components';
 
 export const getServerSideProps = async (context: NextPageContext) => {
   const session = await getSession(context);
@@ -30,11 +30,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <h1 className="text-3xl font-bold underline">Hello world</h1>
-      <p>Logged in as {user?.data.name}</p>
-      <button className={utilsStyles.primaryBtn} onClick={() => signOut()}>
-        Logout
-      </button>
+      <BillBoard />
     </>
   );
 }

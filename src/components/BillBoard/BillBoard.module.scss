@@ -1,0 +1,28 @@
+.container {
+  @apply relative  h-[50%];
+}
+
+.video {
+  @apply w-full object-cover brightness-[60%] h-[125%];
+}
+
+.videoInformations {
+  @apply absolute bottom-0 left-0 w-full p-12;
+
+  h2,
+  p {
+    @apply w-[50%] drop-shadow-xl;
+  }
+
+  h2 {
+    @apply text-5xl font-bold;
+  }
+
+  p {
+    @apply text-xl my-4;
+  }
+
+  .infoBtn {
+    @apply flex items-center gap-2 justify-between;
+  }
+}
