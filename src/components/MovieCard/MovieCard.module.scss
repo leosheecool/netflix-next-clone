@@ -15,9 +15,33 @@
 }
 
 .thumbnail {
-  @apply h-full w-full object-cover top-0 absolute transition duration-500;
+  @apply h-full w-full object-cover top-0 absolute transition duration-500 -z-10;
 }
 
 .video {
   @apply h-full w-full object-cover transition opacity-0;
+}
+
+.infoContainer {
+  // background color gradient-to-t from-[#000000] to-transparent in css
+
+  @apply absolute bottom-0 left-0 w-full p-4 bg-black bg-opacity-50 text-white;
+  background: linear-gradient(to top, #000000, transparent);
+  // background color gradient-to-t from-black to-transparent
+
+  .infoBtnContainer {
+    @apply flex items-center gap-2 justify-between;
+
+    .actionBtn {
+      @apply h-6 w-6 cursor-pointer hover:opacity-80 transition;
+    }
+  }
+
+  h2 {
+    @apply text-xl font-semibold my-2;
+  }
+
+  p {
+    @apply text-sm;
+  }
 }

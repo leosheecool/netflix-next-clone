@@ -1,13 +1,36 @@
+import { updateFavoriteSatus } from '@/apiCallFns/Movie';
 import { Movie } from '@prisma/client';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useEffect } from 'react';
+import {
+  AiFillInfoCircle,
+  AiFillMinusCircle,
+  AiFillPlayCircle,
+  AiFillPlusCircle
+} from 'react-icons/ai';
 
 import styles from './MovieCard.module.scss';
 
 type Props = {
   movie: Movie;
+  isInList?: boolean;
 };
 
-const MovieCard = ({ movie }: Props) => {
+const testPromise = async () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {}, 2000);
+    resolve('test');
+  });
+};
+
+const MovieCard = ({ movie, isInList }: Props) => {
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation(updateFavoriteSatus, {
+    onSettled: async () => {
+      await queryClient.invalidateQueries(['currentUser']);
+    }
+  });
+
   const [isHovering, setIsHovering] = React.useState(false);
   const videoRef = React.useRef<HTMLVideoElement>(null);
 
@@ -23,8 +46,10 @@ const MovieCard = ({ movie }: Props) => {
         videoRef.current.muted = false;
         await videoRef.current.play();
       } catch (err) {
-        videoRef.current.muted = true;
-        videoRef.current.play();
+        try {
+          videoRef.current.muted = true;
+          await videoRef.current.play();
+        } catch (error) {}
       }
     };
     if (isHovering) playVideo();
@@ -41,14 +66,40 @@ const MovieCard = ({ movie }: Props) => {
       onMouseLeave={handleVideoStop}
     >
       {isHovering && (
-        <video
-          className={styles.video}
-          src={movie.videoUrl}
-          poster={movie.thumbnailUrl}
-          loop
-          autoPlay
-          ref={videoRef}
-        />
+        <>
+          <video
+            className={styles.video}
+            src={movie.videoUrl}
+            poster={movie.thumbnailUrl}
+            loop
+            autoPlay
+            ref={videoRef}
+          />
+          <div className={styles.infoContainer}>
+            <div className={styles.infoBtnContainer}>
+              <div className={styles.infoBtnContainer}>
+                <AiFillPlayCircle className={styles.actionBtn} />
+                {isInList ? (
+                  <AiFillMinusCircle
+                    className={styles.actionBtn}
+                    onClick={() =>
+                      mutate({ movieId: movie.id, favorite: false })
+                    }
+                  />
+                ) : (
+                  <AiFillPlusCircle
+                    className={styles.actionBtn}
+                    onClick={() =>
+                      mutate({ movieId: movie.id, favorite: true })
+                    }
+                  />
+                )}
+              </div>
+              <AiFillInfoCircle className={styles.actionBtn} />
+            </div>
+            <h2>{movie.title}</h2>
+          </div>
+        </>
       )}
       <img
         src={movie.thumbnailUrl}
