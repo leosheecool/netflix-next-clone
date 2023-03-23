@@ -1,0 +1,23 @@
+.container {
+  @apply relative min-w-[200px] rounded-md overflow-hidden h-full transition;
+
+  &:hover {
+    @apply scale-125 shadow-md z-10;
+
+    .thumbnail {
+      @apply opacity-0;
+    }
+
+    .video {
+      @apply opacity-100;
+    }
+  }
+}
+
+.thumbnail {
+  @apply h-full w-full object-cover top-0 absolute transition duration-500;
+}
+
+.video {
+  @apply h-full w-full object-cover transition opacity-0;
+}

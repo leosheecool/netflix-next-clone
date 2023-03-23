@@ -4,7 +4,8 @@ import { getCurrentUser } from '@/apiCallFns/User';
 import utilsStyles from '@/styles/utils.module.scss';
 import { NextPageContext } from 'next';
 import { useQuery } from '@tanstack/react-query';
-import { BillBoard, Navbar } from '@/components';
+import { BillBoard, MovieCardList, Navbar } from '@/components';
+import { getLatestMovies } from '@/apiCallFns/Movie';
 
 export const getServerSideProps = async (context: NextPageContext) => {
   const session = await getSession(context);
@@ -23,14 +24,15 @@ export const getServerSideProps = async (context: NextPageContext) => {
 };
 
 export default function Home() {
-  const { data: user } = useQuery(['currentUser'], {
-    queryFn: getCurrentUser
+  const { data: latestMovies } = useQuery(['latestMovies'], {
+    queryFn: getLatestMovies
   });
 
   return (
     <>
       <Navbar />
       <BillBoard />
+      <MovieCardList movies={latestMovies?.data} />
     </>
   );
 }
