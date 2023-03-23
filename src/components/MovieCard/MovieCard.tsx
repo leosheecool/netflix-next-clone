@@ -1,5 +1,5 @@
 import { Movie } from '@prisma/client';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import styles from './MovieCard.module.scss';
 
@@ -8,25 +8,30 @@ type Props = {
 };
 
 const MovieCard = ({ movie }: Props) => {
-  const videoref = React.useRef<HTMLVideoElement>(null);
+  const [isHovering, setIsHovering] = React.useState(false);
+  const videoRef = React.useRef<HTMLVideoElement>(null);
 
   const handleVideoPlaying = async () => {
-    if (!videoref.current) return;
-
-    try {
-      videoref.current.muted = false;
-      await videoref.current.play();
-    } catch (err) {
-      videoref.current.muted = true;
-      videoref.current.play();
-    }
+    setIsHovering(true);
   };
 
+  useEffect(() => {
+    const playVideo = async () => {
+      if (!videoRef.current) return;
+
+      try {
+        videoRef.current.muted = false;
+        await videoRef.current.play();
+      } catch (err) {
+        videoRef.current.muted = true;
+        videoRef.current.play();
+      }
+    };
+    if (isHovering) playVideo();
+  }, [isHovering]);
+
   const handleVideoStop = () => {
-    if (videoref.current) {
-      videoref.current.pause();
-      videoref.current.currentTime = 0;
-    }
+    setIsHovering(false);
   };
 
   return (
@@ -35,13 +40,16 @@ const MovieCard = ({ movie }: Props) => {
       onMouseEnter={handleVideoPlaying}
       onMouseLeave={handleVideoStop}
     >
-      <video
-        className={styles.video}
-        src={movie.videoUrl}
-        poster={movie.thumbnailUrl}
-        loop
-        ref={videoref}
-      />
+      {isHovering && (
+        <video
+          className={styles.video}
+          src={movie.videoUrl}
+          poster={movie.thumbnailUrl}
+          loop
+          autoPlay
+          ref={videoRef}
+        />
+      )}
       <img
         src={movie.thumbnailUrl}
         alt={movie.title}
