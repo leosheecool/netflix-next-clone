@@ -1,3 +1,4 @@
+import { Movie } from '@prisma/client';
 import axios from 'axios';
 
 export const getRandomMovie = () => {
@@ -13,7 +14,7 @@ export const getLatestMovies = () => {
 };
 
 export const getFavoriteMovies = () => {
-  return axios.get('/api/movies/favorite');
+  return axios.get<Movie[]>('/api/movies/favorite');
 };
 
 export const updateFavoriteSatus = (data: {

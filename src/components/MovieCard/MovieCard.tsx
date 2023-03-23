@@ -26,8 +26,9 @@ const testPromise = async () => {
 const MovieCard = ({ movie, isInList }: Props) => {
   const queryClient = useQueryClient();
   const { mutate } = useMutation(updateFavoriteSatus, {
-    onSettled: async () => {
+    onSuccess: async () => {
       await queryClient.invalidateQueries(['currentUser']);
+      await queryClient.invalidateQueries(['favoriteMovies']);
     }
   });
 

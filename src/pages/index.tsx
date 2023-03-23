@@ -5,6 +5,7 @@ import { BillBoard, MovieCardList, Navbar } from '@/components';
 import { getFavoriteMovies, getLatestMovies } from '@/apiCallFns/Movie';
 
 import styles from '@/styles/index.module.scss';
+import { Movie } from '@prisma/client';
 
 export const getServerSideProps = async (context: NextPageContext) => {
   const session = await getSession(context);
@@ -37,8 +38,12 @@ export default function Home() {
       <div className={styles.listContainer}>
         <h2 className={styles.listTitle}>Latest Movies</h2>
         <MovieCardList movies={latestMovies?.data} />
-        <h2 className={styles.listTitle}>Favorite Movies</h2>
-        <MovieCardList movies={favoriteMovies?.data} />
+        {favoriteMovies?.data && favoriteMovies?.data.length > 0 && (
+          <>
+            <h2 className={styles.listTitle}>Favorite Movies</h2>
+            <MovieCardList movies={favoriteMovies?.data} />
+          </>
+        )}
       </div>
     </>
   );
