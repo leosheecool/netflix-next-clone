@@ -93,7 +93,7 @@ const Auth = () => {
             {error && <p className={styles.error}>{error}</p>}
             <button
               type="submit"
-              className={cn(utilsStyles.primaryBtn, styles.submitBtn)}
+              className={cn(styles.submitBtn, utilsStyles.primaryBtn)}
             >
               {pageText[formType].buttonText}
             </button>

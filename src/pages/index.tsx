@@ -1,11 +1,10 @@
-import { getSession, signOut } from 'next-auth/react';
-import { getCurrentUser } from '@/apiCallFns/User';
-
-import utilsStyles from '@/styles/utils.module.scss';
+import { getSession } from 'next-auth/react';
 import { NextPageContext } from 'next';
 import { useQuery } from '@tanstack/react-query';
 import { BillBoard, MovieCardList, Navbar } from '@/components';
-import { getLatestMovies } from '@/apiCallFns/Movie';
+import { getFavoriteMovies, getLatestMovies } from '@/apiCallFns/Movie';
+
+import styles from '@/styles/index.module.scss';
 
 export const getServerSideProps = async (context: NextPageContext) => {
   const session = await getSession(context);
@@ -27,12 +26,20 @@ export default function Home() {
   const { data: latestMovies } = useQuery(['latestMovies'], {
     queryFn: getLatestMovies
   });
+  const { data: favoriteMovies } = useQuery(['favoriteMovies'], {
+    queryFn: getFavoriteMovies
+  });
 
   return (
     <>
       <Navbar />
       <BillBoard />
-      <MovieCardList movies={latestMovies?.data} />
+      <div className={styles.listContainer}>
+        <h2 className={styles.listTitle}>Latest Movies</h2>
+        <MovieCardList movies={latestMovies?.data} />
+        <h2 className={styles.listTitle}>Favorite Movies</h2>
+        <MovieCardList movies={favoriteMovies?.data} />
+      </div>
     </>
   );
 }
