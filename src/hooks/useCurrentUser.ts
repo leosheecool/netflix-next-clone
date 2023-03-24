@@ -2,10 +2,10 @@ import { getCurrentUser } from '@/apiCallFns/User';
 import { useQuery } from '@tanstack/react-query';
 
 const useCurrentUser = () => {
-  const { data, error, isLoading } = useQuery(['/current'], {
+  const { data, error, isLoading } = useQuery(['currentUser'], {
     queryFn: getCurrentUser
   });
-  return { data, error, isLoading };
+  return { data: data?.data, error, isLoading };
 };
 
 export default useCurrentUser;

@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { loginUser, registerUser } from '@/apiCallFns/Auth';
 import { useRouter } from 'next/router';
+import cn from 'classnames';
 
 import { FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa';
@@ -90,7 +91,10 @@ const Auth = () => {
               {...register('password')}
             />
             {error && <p className={styles.error}>{error}</p>}
-            <button type="submit" className={utilsStyles.primaryBtn}>
+            <button
+              type="submit"
+              className={cn(styles.submitBtn, utilsStyles.primaryBtn)}
+            >
               {pageText[formType].buttonText}
             </button>
           </form>
