@@ -10,11 +10,11 @@ export const getMovies = () => {
 };
 
 export const getLatestMovies = () => {
-  return axios.get('/api/movies/latest');
+  return axios.get('/api/movies?orderBy=desc&take=10');
 };
 
 export const getFavoriteMovies = () => {
-  return axios.get<Movie[]>('/api/movies/favorite');
+  return axios.get<Movie[]>('/api/movies?favorite=true');
 };
 
 export const updateFavoriteSatus = (data: {

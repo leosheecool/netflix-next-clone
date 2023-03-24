@@ -1,5 +1,5 @@
 .container {
-  @apply relative min-w-[200px] rounded-md overflow-hidden h-full transition;
+  @apply relative min-w-[200px] rounded-md overflow-hidden h-full transition cursor-pointer;
 
   &:hover {
     @apply scale-125 shadow-md z-10;
