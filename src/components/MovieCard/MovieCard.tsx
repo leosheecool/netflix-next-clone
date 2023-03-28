@@ -1,6 +1,7 @@
 import { updateFavoriteSatus } from '@/apiCallFns/Movie';
 import { Movie } from '@prisma/client';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import {
   AiFillInfoCircle,
@@ -24,6 +25,7 @@ const testPromise = async () => {
 };
 
 const MovieCard = ({ movie, isInList }: Props) => {
+  const router = useRouter();
   const queryClient = useQueryClient();
   const { mutate } = useMutation(updateFavoriteSatus, {
     onSuccess: async () => {
@@ -60,6 +62,10 @@ const MovieCard = ({ movie, isInList }: Props) => {
     setIsHovering(false);
   };
 
+  const handleWatchVideo = () => {
+    router.push(`/watch?movieId=${movie.id}`);
+  };
+
   return (
     <div
       className={styles.container}
@@ -75,11 +81,15 @@ const MovieCard = ({ movie, isInList }: Props) => {
             loop
             autoPlay
             ref={videoRef}
+            onClick={handleWatchVideo}
           />
           <div className={styles.infoContainer}>
             <div className={styles.infoBtnContainer}>
               <div className={styles.infoBtnContainer}>
-                <AiFillPlayCircle className={styles.actionBtn} />
+                <AiFillPlayCircle
+                  className={styles.actionBtn}
+                  onClick={handleWatchVideo}
+                />
                 {isInList ? (
                   <AiFillMinusCircle
                     className={styles.actionBtn}

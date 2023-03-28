@@ -1,0 +1,39 @@
+.container {
+  @apply relative h-full w-full bg-black flex items-center;
+}
+
+.video {
+  @apply w-full object-cover;
+}
+
+.infoContainer {
+  @apply absolute top-0 left-0 w-[40%] h-full bg-black bg-opacity-50 text-white p-10;
+  background: linear-gradient(to right, #000000, transparent);
+}
+
+.showInfoBtn {
+  @apply absolute top-0 left-0 m-4 cursor-pointer border-gray-900 border-2 rounded-md;
+}
+
+.infoIcon {
+  @apply absolute top-10 left-10 h-10 w-10 text-white cursor-pointer;
+}
+
+.navigationIconContainer {
+  @apply flex items-center justify-between;
+  .icon {
+    @apply h-10 w-10 text-white cursor-pointer;
+  }
+}
+
+.movieTitle {
+  @apply text-6xl font-bold my-7;
+}
+
+.infoSection {
+  @apply my-4;
+}
+
+.sectionTitle {
+  @apply text-2xl font-bold;
+}
