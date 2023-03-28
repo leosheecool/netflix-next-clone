@@ -9,6 +9,10 @@ export const getMovies = () => {
   return axios.get('/api/movies');
 };
 
+export const getMovieById = (id: string) => {
+  return axios.get<Movie>(`/api/movies/${id}`);
+};
+
 export const getLatestMovies = () => {
   return axios.get('/api/movies?orderBy=desc&take=10');
 };

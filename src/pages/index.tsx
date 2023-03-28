@@ -5,7 +5,6 @@ import { BillBoard, MovieCardList, Navbar } from '@/components';
 import { getFavoriteMovies, getLatestMovies } from '@/apiCallFns/Movie';
 
 import styles from '@/styles/index.module.scss';
-import { Movie } from '@prisma/client';
 
 export const getServerSideProps = async (context: NextPageContext) => {
   const session = await getSession(context);
